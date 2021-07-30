@@ -23,7 +23,7 @@ class Game:
             pg.display.update()
             timer.tick(60)
 
-    def exit() -> None:
+    def exit(self) -> None:
         pg.quit()
         sys.exit()
 
