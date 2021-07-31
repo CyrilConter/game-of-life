@@ -1,4 +1,5 @@
 # Conway's Game of Life
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=CyrilConter_game-of-life&metric=ncloc)](https://sonarcloud.io/dashboard?id=CyrilConter_game-of-life)
 ![Github workflow](https://github.com/CyrilConter/game-of-life/actions/workflows/python_app.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=CyrilConter_game-of-life&metric=alert_status)](https://sonarcloud.io/dashboard?id=CyrilConter_game-of-life)
 
