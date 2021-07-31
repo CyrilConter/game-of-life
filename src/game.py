@@ -30,26 +30,14 @@ class Game:
         self.__screen = pg.display.set_mode((1920, 1200))
 
     def run(self) -> None:
-        display_grid = True
 
         while True:
-            self.__cycle += 1
 
             for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    exit()
-
-                if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        exit()
-                    elif event.key == pg.K_PAUSE:
-                        self.pause_pressed()
-                    elif event.key == pg.K_g:
-                        display_grid = not display_grid
-                    elif event.key == pg.K_r:
-                        self.reset()
+                self.process_events(event)
 
             if not self.__paused:
+                self.__cycle += 1
                 start = time.perf_counter()
                 self.__world.next_generation_apply()
                 end = time.perf_counter()
@@ -57,6 +45,18 @@ class Game:
 
             self.__clock.tick(self.FPS)
             self.redraw()
+
+    def process_events(self, event) -> None:
+        if event.type == pg.QUIT:
+            self.exit()
+
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                self.exit()
+            elif event.key == pg.K_PAUSE:
+                self.pause_pressed()
+            elif event.key == pg.K_r:
+                self.reset()
 
     def reset(self) -> None:
         self.__cycle = 0

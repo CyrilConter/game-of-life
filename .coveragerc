@@ -1,0 +1,10 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+
+[paths]
+source =
+    src/
+
+omit =
+    src/game.py
