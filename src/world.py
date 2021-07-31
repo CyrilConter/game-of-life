@@ -1,5 +1,7 @@
 import random
-from collections import namedtuple
+from collections import namedtuple, Counter
+import time
+import copy
 
 CELL_DEAD = 0
 CELL_ALIVE = 1
@@ -23,16 +25,30 @@ class World:
     @property
     def width(self) -> int: return self.__width
 
+    @property
+    def alive_cells_count(self) -> int: return len(self.__cells_alive)
+
+    @property
+    def alive_cells(self) -> int: return self.__cells_alive
+
     @classmethod
-    def load_from(cls, grid: list):
+    def load_from_grid(cls, grid: list):
+        """Generate a World instance from a 2-D grid
+
+        Args:
+            grid (list): non empty 2-D grid with {0,1} values
+
+        Returns:
+            [type]: World instance
+        """
         rows, cols = len(grid), len(grid[0])
-        o = cls(rows, cols)
-        o.__cells_alive = [
+        instance = cls(rows, cols)
+        instance.__cells_alive = [
             Cell(x, y) for x in range(cols)
             for y in range(rows)
             if grid[y][x] == CELL_ALIVE
         ]
-        return o
+        return instance
 
     def reset(self):
         """Generates a new world with random alive cells
@@ -52,19 +68,23 @@ class World:
         res.remove(cell)
         return res
 
-    def count_neighbors(self, cell: Cell) -> int:
-        neighbors = self.get_neighbors(cell)
-        return sum(1 for x in neighbors if x in self.__cells_alive)
+    def count_neighbors(self) -> Counter:
+        return Counter(
+            nb for cell in self.__cells_alive
+            for nb in self.get_neighbors(cell))
 
     def is_cell_alive(self, x: int, y: int) -> bool:
         return (x, y) in self.__cells_alive
 
     def next_generation_apply(self):
-        rest = {cell: self.count_neighbors(cell)
-                for cell in self.__cells_alive}
+        start = time.perf_counter()
+        tmp = rest = self.count_neighbors()
+        end = time.perf_counter()
+        print(f'Get - 2: {end - start: 0.4f} secs')
+        alive = copy.deepcopy(self.__cells_alive)
         self.__cells_alive = [
-            k for k, v in rest.items()
-            if (v == 3) or (v == 2 and k in self.__cells_alive)]
+            cell for cell in tmp
+            if (rest[cell] == 3) or (rest[cell] == 2 and cell in alive)]
 
     def __len__(self) -> int:
         return self.__height * self.__width
