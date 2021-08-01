@@ -94,9 +94,15 @@ class Game:
 
         if self.__display_grid:
             for x in range(self.__world.width+1):
-                pg.draw.line(world_surf, BOARD_LINE_COLOR, (x * CELL_SIZE, 0), (x * CELL_SIZE, world_rect.height))
+                pg.draw.line(
+                    world_surf,
+                    BOARD_LINE_COLOR,
+                    (x * CELL_SIZE, 0), (x * CELL_SIZE, world_rect.height))
             for y in range(self.__world.height+1):
-                pg.draw.line(world_surf, BOARD_LINE_COLOR, (0, y * CELL_SIZE), (world_rect.width, y * CELL_SIZE))
+                pg.draw.line(
+                    world_surf,
+                    BOARD_LINE_COLOR,
+                    (0, y * CELL_SIZE), (world_rect.width, y * CELL_SIZE))
 
         self.__screen.blit(world_surf, world_rect)
 
