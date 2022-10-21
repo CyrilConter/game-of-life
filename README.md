@@ -15,7 +15,7 @@ The Wikipedia page [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=CyrilConter_game-of-life&metric=coverage)](https://sonarcloud.io/dashboard?id=CyrilConter_game-of-life)
 ## Getting started
 ### Requirements
-* Python: v3.9 [Download](https://www.python.org/downloads/)
+* Python: v3.10 [Download](https://www.python.org/downloads/)
 * Dependency: [PyGame](https://www.pygame.org/)
 ```bash
 pip install pygame
